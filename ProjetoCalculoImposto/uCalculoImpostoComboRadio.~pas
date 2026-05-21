@@ -26,6 +26,7 @@ implementation
 {$R *.dfm}
 
 procedure TfrCalculoImpostoComboRadio.cbEstadoChange(Sender: TObject);
+
 begin
   inherited;
   if (cbEstado.ItemIndex = 0) then

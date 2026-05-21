@@ -11,7 +11,7 @@ type
     Label2: TLabel;
     cbEstado: TComboBox;
     RadioGroup1: TRadioGroup;
-    procedure cbEstadoChange(Sender: TObject);
+    procedure cbEstadoSelect(Sender: TObject);
   private
     { Private declarations }
   public
@@ -25,11 +25,10 @@ implementation
 
 {$R *.dfm}
 
-procedure TfrCalculoImpostoComboRadio.cbEstadoChange(Sender: TObject);
-
+procedure TfrCalculoImpostoComboRadio.cbEstadoSelect(Sender: TObject);
 begin
   inherited;
-  if (cbEstado.ItemIndex = 0) then
+   if (cbEstado.ItemIndex = 0) then
     begin
       edImposto.Text := '5';
     end

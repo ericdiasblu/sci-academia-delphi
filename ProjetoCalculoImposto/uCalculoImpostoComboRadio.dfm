@@ -39,10 +39,11 @@ inherited frCalculoImpostoComboRadio: TfrCalculoImpostoComboRadio
     Left = 96
     Top = 20
     Width = 161
-    Height = 21
-    ItemHeight = 13
+    Height = 22
+    Style = csOwnerDrawFixed
+    ItemHeight = 16
     TabOrder = 4
-    OnChange = cbEstadoChange
+    OnSelect = cbEstadoSelect
     Items.Strings = (
       'Paran'#225
       'Santa Catarina'
