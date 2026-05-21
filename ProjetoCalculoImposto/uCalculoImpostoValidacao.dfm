@@ -1,6 +1,6 @@
 inherited frCalculoImpostoValidacao: TfrCalculoImpostoValidacao
-  Left = 743
-  Top = 395
+  Left = 670
+  Top = 258
   Caption = 'frCalculoImpostoValidacao'
   OldCreateOrder = True
   PixelsPerInch = 96

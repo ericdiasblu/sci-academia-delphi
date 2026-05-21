@@ -1,0 +1,100 @@
+object Form1: TForm1
+  Left = 903
+  Top = 219
+  Width = 278
+  Height = 329
+  Caption = 'Form1'
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'MS Sans Serif'
+  Font.Style = []
+  OldCreateOrder = False
+  PixelsPerInch = 96
+  TextHeight = 13
+  object lbPeso: TLabel
+    Left = 56
+    Top = 80
+    Width = 24
+    Height = 13
+    Caption = 'Peso'
+  end
+  object lbAltura: TLabel
+    Left = 53
+    Top = 112
+    Width = 27
+    Height = 13
+    Caption = 'Altura'
+  end
+  object lbValorTotal: TLabel
+    Left = 29
+    Top = 192
+    Width = 51
+    Height = 13
+    Caption = 'Valor Total'
+  end
+  object lbResultado: TLabel
+    Left = 88
+    Top = 232
+    Width = 5
+    Height = 13
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -11
+    Font.Name = 'MS Sans Serif'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object Label1: TLabel
+    Left = 32
+    Top = 232
+    Width = 51
+    Height = 13
+    Caption = 'Resultado:'
+  end
+  object Label2: TLabel
+    Left = 56
+    Top = 24
+    Width = 158
+    Height = 20
+    Caption = 'Calculadora de IMC'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -16
+    Font.Name = 'MS Sans Serif'
+    Font.Style = [fsBold]
+    ParentFont = False
+  end
+  object edPeso: TEdit
+    Left = 88
+    Top = 76
+    Width = 121
+    Height = 21
+    TabOrder = 0
+  end
+  object edAltura: TEdit
+    Left = 88
+    Top = 108
+    Width = 121
+    Height = 21
+    TabOrder = 1
+  end
+  object edValorTotal: TEdit
+    Left = 88
+    Top = 188
+    Width = 121
+    Height = 21
+    Enabled = False
+    TabOrder = 2
+  end
+  object btCalcular: TButton
+    Left = 111
+    Top = 144
+    Width = 75
+    Height = 25
+    Caption = 'Calcular'
+    TabOrder = 3
+    OnClick = btCalcularClick
+  end
+end
