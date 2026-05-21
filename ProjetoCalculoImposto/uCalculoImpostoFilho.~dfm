@@ -1,0 +1,7 @@
+inherited frCalculoImpostoFilho: TfrCalculoImpostoFilho
+  Left = 579
+  Top = 233
+  Caption = 'CalculoImpostoFilho'
+  PixelsPerInch = 96
+  TextHeight = 13
+end

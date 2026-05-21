@@ -1,0 +1,35 @@
+unit uCalculoImpostoValidacao;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, uCalculoImposto, StdCtrls;
+
+type
+  TfrCalculoImpostoValidacao = class(TfrCalculoImpostoPrincipal)
+    procedure btCalcularClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frCalculoImpostoValidacao: TfrCalculoImpostoValidacao;
+
+implementation
+
+{$R *.dfm}
+
+procedure TfrCalculoImpostoValidacao.btCalcularClick(Sender: TObject);
+begin
+  if(edValorNota.Text = '0') or (edValorNota.Text = '') then
+    ShowMessage('Informe um valor para a nota');
+  if (edImposto.Text = '0') or (edImposto.Text = '') then
+    ShowMessage('Informe um valor para o imposto');
+
+  inherited;
+end;
+
+end.
