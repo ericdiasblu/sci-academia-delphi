@@ -7,7 +7,7 @@ uses
   Dialogs, StdCtrls;
 
 type
-  TForm1 = class(TForm)
+  TfrCalculoImpostoPrincipal = class(TForm)
     lbValorNota: TLabel;
     btCalcular: TButton;
     edImposto: TEdit;
@@ -23,23 +23,45 @@ type
   end;
 
 var
-  Form1: TForm1;
+  frCalculoImpostoPrincipal: TfrCalculoImpostoPrincipal;
 
 implementation
 
 {$R *.dfm}
 
-procedure TForm1.btCalcularClick(Sender: TObject);
+procedure TfrCalculoImpostoPrincipal.btCalcularClick(Sender: TObject);
 var
   wValorNota:  Currency;
   wImposto:    Currency;
   wValorTotal: Currency;
 begin
-  wValorNota  := StrToCurr(edValorNota.Text);
-  wImposto    := StrToCurr(edImposto.Text) / 100;
+  wValorNota  := StrToCurrDef(edValorNota.Text,0);
+  wImposto    := StrToCurrDef(edImposto.Text,0) / 100;
   wValorTotal := wValorNota * wImposto;
 
+  if (wValorNota = 0) and (wImposto = 0) then
+    begin
+       ShowMessage('Informe corretamente o Valor da Nota e do Imposto');
+       edImposto.Text := '';
+       edValorNota.Text := '';
+       Exit;
+    end
+  else if wValorNota = 0 then
+    begin
+      ShowMessage('Informe corretamente o Valor da Nota');
+      edValorNota.Text := '';
+      Exit;
+    end
+  else if wImposto = 0 then
+    begin
+       ShowMessage('Informe corretamente o Imposto');
+       edImposto.Text := '';
+       Exit;
+    end;
+
   edValorTotal.Text := CurrToStr(wValorTotal);
+
+  // ShowMessage('Tela Pai');
 end;
 
 end.

@@ -1,19 +1,21 @@
 inherited frCalculoImpostoComboRadio: TfrCalculoImpostoComboRadio
+  Left = 1050
+  Top = 120
   Width = 301
-  Height = 318
-  Caption = 'frCalculoImpostoComboRadio'
+  Height = 337
+  OldCreateOrder = True
   PixelsPerInch = 96
   TextHeight = 13
   inherited lbValorNota: TLabel
-    Top = 104
+    Top = 128
   end
   inherited lbImposto: TLabel
-    Top = 144
+    Top = 168
   end
   inherited Label1: TLabel
-    Top = 232
+    Top = 256
   end
-  object Label2: TLabel [3]
+  object lbEstado: TLabel [3]
     Left = 56
     Top = 24
     Width = 33
@@ -21,18 +23,19 @@ inherited frCalculoImpostoComboRadio: TfrCalculoImpostoComboRadio
     Caption = 'Estado'
   end
   inherited btCalcular: TButton
-    Top = 184
+    Left = 139
+    Top = 208
   end
   inherited edImposto: TEdit
-    Top = 140
+    Top = 164
     Width = 162
   end
   inherited edValorNota: TEdit
-    Top = 100
+    Top = 124
     Width = 161
   end
   inherited edValorTotal: TEdit
-    Top = 228
+    Top = 252
     Width = 161
   end
   object cbEstado: TComboBox
@@ -49,16 +52,18 @@ inherited frCalculoImpostoComboRadio: TfrCalculoImpostoComboRadio
       'Santa Catarina'
       'S'#227'o Paulo')
   end
-  object RadioGroup1: TRadioGroup
+  object rgMovimento: TRadioGroup
     Left = 96
-    Top = 48
+    Top = 64
     Width = 161
     Height = 41
     Caption = 'Movimento'
     Columns = 2
+    ItemIndex = 0
     Items.Strings = (
       'Entrada'
       'Sa'#237'da')
     TabOrder = 5
+    OnClick = rgMovimentoClick
   end
 end

@@ -35,13 +35,33 @@ var
   wImposto:    Currency;
   wValorTotal: Currency;
 begin
-  wValorNota  := StrToCurr(edValorNota.Text);
-  wImposto    := StrToCurr(edImposto.Text) / 100;
+  wValorNota  := StrToCurrDef(edValorNota.Text,0);
+  wImposto    := StrToCurrDef(edImposto.Text,0) / 100;
   wValorTotal := wValorNota * wImposto;
 
-  edValorTotal.Text := CurrToStr(wValorTotal);
+  if (wValorNota = 0) and (wImposto = 0) then
+    begin
+       ShowMessage('Informe corretamente o Valor da Nota e do Imposto');
+       edImposto.Text := '';
+       edValorNota.Text := '';
+       Exit;
+    end
+  else if wValorNota = 0 then
+    begin
+      ShowMessage('Informe corretamente o Valor da Nota');
+      edValorNota.Text := '';
+      Exit;
+    end
+  else if wImposto = 0 then
+    begin
+       ShowMessage('Informe corretamente o Imposto');
+       edImposto.Text := '';
+       Exit;
+    end;
 
-  ShowMessage('Tela Pai');
+  edValorTotal.Text := 'R$ '+CurrToStr(wValorTotal);
+
+  // ShowMessage('Tela Pai');
 end;
 
 end.

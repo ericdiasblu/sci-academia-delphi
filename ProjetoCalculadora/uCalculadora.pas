@@ -30,6 +30,9 @@ type
     wValorUm: Currency;
     wValorDois: Currency;
     wResultado: Currency;
+
+    procedure pAtribuirValores;
+    procedure pCalcularResultado;
   public
     { Public declarations }
   end;
@@ -43,42 +46,38 @@ implementation
 
 procedure TForm1.btAdicaoClick(Sender: TObject);
 begin
-  wValorUm:= StrToCurr(edValorUm.Text);
-  wValorDois:= StrToCurr(edValorDois.Text);
+  pAtribuirValores;
 
   wResultado:= wValorUm + wValorDois;
 
-  edResultado.Text := CurrToStr(wResultado);
+  pCalcularResultado;
 end;
 
 procedure TForm1.Button1Click(Sender: TObject);
 begin
-  wValorUm:= StrToCurr(edValorUm.Text);
-  wValorDois:= StrToCurr(edValorDois.Text);
+  pAtribuirValores;
 
-   wResultado:= wValorUm - wValorDois;
+  wResultado:= wValorUm - wValorDois;
 
-  edResultado.Text := CurrToStr(wResultado);
+  pCalcularResultado;
 end;
 
 procedure TForm1.btMultiplicacaoClick(Sender: TObject);
 begin
-  wValorUm:= StrToCurr(edValorUm.Text);
-  wValorDois:= StrToCurr(edValorDois.Text);
+   pAtribuirValores;
 
    wResultado:= wValorUm * wValorDois;
 
-  edResultado.Text := CurrToStr(wResultado);
+   pCalcularResultado;
 end;
 
 procedure TForm1.btDivisaoClick(Sender: TObject);
 begin
-  wValorUm:= StrToCurr(edValorUm.Text);
-  wValorDois:= StrToCurr(edValorDois.Text);
+  pAtribuirValores;
 
   wResultado:= wValorUm / wValorDois;
 
-  edResultado.Text := CurrToStr(wResultado);
+  pCalcularResultado;
 end;
 
 procedure TForm1.Button2Click(Sender: TObject);
@@ -86,6 +85,17 @@ begin
   edValorUm.Text := ' ';
   edValorDois.Text := ' ';
   edResultado.Text := ' ';
+end;
+
+procedure TForm1.pAtribuirValores;
+begin
+      wValorUm:= StrToCurr(edValorUm.Text);
+      wValorDois:=  StrToCurr(edValorDois.Text);
+end;
+
+procedure TForm1.pCalcularResultado;
+begin
+    edResultado.Text := CurrToStr(wResultado);
 end;
 
 end.

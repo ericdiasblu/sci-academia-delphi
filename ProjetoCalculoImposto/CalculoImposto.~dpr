@@ -11,6 +11,5 @@ uses
 begin
   Application.Initialize;
   Application.CreateForm(TfrCalculoImpostoPrincipal, frCalculoImpostoPrincipal);
-  Application.CreateForm(TfrCalculoImpostoValidacao, frCalculoImpostoValidacao);
   Application.Run;
 end.

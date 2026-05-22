@@ -1,8 +1,8 @@
 object frCalculoProduto: TfrCalculoProduto
-  Left = 407
-  Top = 162
-  Width = 472
-  Height = 519
+  Left = 872
+  Top = 125
+  Width = 465
+  Height = 528
   Caption = 'C'#225'lculo de Produto'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -101,7 +101,7 @@ object frCalculoProduto: TfrCalculoProduto
       TabOrder = 5
     end
   end
-  object GroupBox2: TGroupBox
+  object gbTotais: TGroupBox
     Left = 24
     Top = 312
     Width = 409
@@ -139,13 +139,13 @@ object frCalculoProduto: TfrCalculoProduto
       TabOrder = 1
     end
   end
-  object Button1: TButton
-    Left = 360
+  object btCalcular: TButton
+    Left = 358
     Top = 440
     Width = 75
     Height = 25
     Caption = 'Calcular'
     TabOrder = 2
-    OnClick = Button1Click
+    OnClick = btCalcularClick
   end
 end

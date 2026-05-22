@@ -8,10 +8,12 @@ uses
 
 type
   TfrCalculoImpostoComboRadio = class(TfrCalculoImpostoPrincipal)
-    Label2: TLabel;
+    lbEstado: TLabel;
     cbEstado: TComboBox;
-    RadioGroup1: TRadioGroup;
+    rgMovimento: TRadioGroup;
     procedure cbEstadoSelect(Sender: TObject);
+    procedure rgMovimentoClick(Sender: TObject);
+    procedure btCalcularClick(Sender: TObject);
   private
     { Private declarations }
   public
@@ -28,18 +30,80 @@ implementation
 procedure TfrCalculoImpostoComboRadio.cbEstadoSelect(Sender: TObject);
 begin
   inherited;
+  // Muda Imposto conforme Estado e verifica qual movimento está selecionado
    if (cbEstado.ItemIndex = 0) then
     begin
-      edImposto.Text := '5';
+      if (rgMovimento.ItemIndex = 1) then
+        begin
+          edImposto.Text := '7'
+        end
+      else
+        edImposto.Text := '5';
     end
   else if (cbEstado.ItemIndex = 1) then
     begin
-      edImposto.Text := '7';
+      if (rgMovimento.ItemIndex = 1) then
+        begin
+          edImposto.Text := '10'
+        end
+      else
+        edImposto.Text := '7';
     end
   else if (cbEstado.ItemIndex = 2) then
     begin
+      if (rgMovimento.ItemIndex = 1) then
+        begin
+          edImposto.Text := '12';
+        end
+      else
+        edImposto.Text := '10';
+    end
+end;
+
+procedure TfrCalculoImpostoComboRadio.rgMovimentoClick(Sender: TObject);
+begin
+
+  // Ao clicar em Saída
+
+  if (cbEstado.ItemIndex = 0) and (rgMovimento.ItemIndex = 1) then
+    begin
+      edImposto.Text := '7';
+    end
+  else if (cbEstado.ItemIndex = 1) and (rgMovimento.ItemIndex = 1) then
+    begin
       edImposto.Text := '10';
     end
+  else if (cbEstado.ItemIndex = 2) and (rgMovimento.ItemIndex = 1) then
+    begin
+      edImposto.Text := '12';
+    end;
+
+  // Ao clicar em Entrada
+
+  if (cbEstado.ItemIndex = 0) and (rgMovimento.ItemIndex = 0) then
+    begin
+      edImposto.Text := '5';
+    end
+  else if (cbEstado.ItemIndex = 1) and (rgMovimento.ItemIndex = 0) then
+    begin
+      edImposto.Text := '7';
+    end
+  else if (cbEstado.ItemIndex = 2) and (rgMovimento.ItemIndex = 0) then
+    begin
+      edImposto.Text := '10';
+    end;
+
+  inherited;
+end;
+
+procedure TfrCalculoImpostoComboRadio.btCalcularClick(Sender: TObject);
+begin
+  if cbEstado.ItemIndex = -1 then
+    begin
+      ShowMessage('Informe o Estado');
+      Exit;
+    end;
+  inherited;
 end;
 
 end.

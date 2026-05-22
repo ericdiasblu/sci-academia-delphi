@@ -19,13 +19,13 @@ type
     Label1: TLabel;
     ckTributado: TCheckBox;
     edAliquota: TEdit;
-    GroupBox2: TGroupBox;
+    gbTotais: TGroupBox;
     Label2: TLabel;
     edValorTotal: TEdit;
     Label3: TLabel;
     edValorIcms: TEdit;
-    Button1: TButton;
-    procedure Button1Click(Sender: TObject);
+    btCalcular: TButton;
+    procedure btCalcularClick(Sender: TObject);
     procedure ckTributadoClick(Sender: TObject);
   private
     { Private declarations }
@@ -40,7 +40,7 @@ implementation
 
 {$R *.dfm}
 
-procedure TfrCalculoProduto.Button1Click(Sender: TObject);
+procedure TfrCalculoProduto.btCalcularClick(Sender: TObject);
 var
   wCodigoProduto: Integer;
   wDescricao: String;
@@ -73,10 +73,18 @@ begin
       Exit;
     end;
 
-  wCodigoProduto := StrToInt(edCodigoProduto.Text);
+  wCodigoProduto := StrToIntDef(edCodigoProduto.Text,0);
+
+  if wCodigoProduto = 0 then
+    begin
+       ShowMessage('Informe corretamente o código do produto');
+       Exit;
+       edCodigoProduto.Text := '';
+    end;
+
   wDescricao := edDescricao.Text;
-  wQuantidade := StrToInt(edQuantidade.Text);
-  wValorUnitario := StrToCurr(edValorUnitario.Text);
+  wQuantidade := StrToIntDef(edQuantidade.Text,0);
+  wValorUnitario := StrToCurrDef(edValorUnitario.Text,0);
 
   wValorTotal := wQuantidade * wValorUnitario;
 
@@ -84,7 +92,7 @@ begin
 
   if (ckTributado.Checked = True) and (edAliquota.Text <> '') then
     begin
-      wAliquotaIcms := StrToCurr(edAliquota.Text);
+      wAliquotaIcms := StrToCurrDef(edAliquota.Text,0);
       wValorIcms := wValorTotal * wAliquotaIcms / 100;
       edValorIcms.Text := CurrToStr(wValorIcms);
     end
