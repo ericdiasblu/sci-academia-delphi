@@ -1,0 +1,212 @@
+unit uCalculoImposto;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
+  Dialogs, StdCtrls, ExtCtrls, DB, DBClient, Grids, DBGrids;
+
+type
+  TfrCalculoImposto = class(TForm)
+    lbEstado: TLabel;
+    cbEstado: TComboBox;
+    rgMovimento: TRadioGroup;
+    lbValorNota: TLabel;
+    edValorNota: TEdit;
+    lbImposto: TLabel;
+    edImposto: TEdit;
+    btCalcular: TButton;
+    lbValorTotal: TLabel;
+    edValorTotal: TEdit;
+    Label1: TLabel;
+    edDataEmissao: TEdit;
+    lbNumeroNota: TLabel;
+    edNumeroNota: TEdit;
+    btSalvar: TButton;
+    cdsCalculoImposto: TClientDataSet;
+    cdsCalculoImpostobdNUMERONOTA: TIntegerField;
+    cdsCalculoImpostobdDATAEMISSAO: TStringField;
+    cdsCalculoImpostobdESTADO: TIntegerField;
+    cdsCalculoImpostobdMOVIMENTO: TIntegerField;
+    cdsCalculoImpostobdVALORNOTA: TCurrencyField;
+    cdsCalculoImpostobdIMPOSTO: TCurrencyField;
+    cdsCalculoImpostobdVALORTOTAL: TCurrencyField;
+    DataSource1: TDataSource;
+    DBGrid1: TDBGrid;
+    procedure btCalcularClick(Sender: TObject);
+    procedure cbEstadoSelect(Sender: TObject);
+    procedure rgMovimentoClick(Sender: TObject);
+    procedure btSalvarClick(Sender: TObject);
+    procedure edNumeroNotaExit(Sender: TObject);
+  private
+
+    wValorNota: Currency;
+    wImposto: Currency;
+    wValorTotal : Currency;
+
+    function fCalcularValorTotal: String;
+
+    procedure pAtribuirImpostoPorEstado;
+    procedure pAtribuirImpostoPorMovimento;
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frCalculoImposto: TfrCalculoImposto;
+
+implementation
+
+{$R *.dfm}
+
+procedure TfrCalculoImposto.btCalcularClick(Sender: TObject);
+begin
+  if edNumeroNota.Text = '' then
+    begin
+      ShowMessage('Informe o Número da Nota');
+      Exit;
+    end;
+
+  if edDataEmissao.Text = '' then
+    begin
+      ShowMessage('Informe a Data de Emissão');
+      Exit;
+    end;
+
+  if cbEstado.Text = '' then
+    begin
+      ShowMessage('Informe o Estado');
+      Exit;
+    end;
+
+  if rgMovimento.ItemIndex = -1 then
+    begin
+      ShowMessage('Informe um tipo de movimento');
+      Exit;
+    end;
+
+  wValorNota := StrToCurrDef(edValorNota.Text,0);
+
+  if wValorNota = 0  then
+    begin
+      ShowMessage('Informe o valor da nota');
+      Exit;
+    end;
+
+  wImposto := StrToCurrDef(edImposto.Text,0);
+
+    if wImposto = 0  then
+    begin
+      ShowMessage('Informe o imposto');
+      Exit;
+    end;
+
+  edValorTotal.Text := 'R$ ' + fCalcularValorTotal;
+
+end;
+
+procedure TfrCalculoImposto.cbEstadoSelect(Sender: TObject);
+begin
+    pAtribuirImpostoPorEstado;
+end;
+
+procedure TfrCalculoImposto.pAtribuirImpostoPorEstado;
+begin
+  // Aqui verifica qual o estado selecionado e verifica se o movimento atual selecionado é Entrada (0 ou -1) ou Saída (1)
+   if (cbEstado.ItemIndex = 0)  then
+    if (rgMovimento.ItemIndex = -1) or (rgMovimento.ItemIndex = 0) then
+     wImposto := 5
+    else
+      wImposto := 7;
+
+  if (cbEstado.ItemIndex = 1)  then
+    if (rgMovimento.ItemIndex = -1) or (rgMovimento.ItemIndex = 0) then
+      wImposto := 7
+    else
+      wImposto := 10;
+
+  if (cbEstado.ItemIndex = 2)  then
+    if (rgMovimento.ItemIndex = -1) or (rgMovimento.ItemIndex = 0) then
+      wImposto := 10
+    else
+      wImposto := 12;
+
+  edImposto.Text := CurrToStr(wImposto);
+end;
+
+procedure TfrCalculoImposto.pAtribuirImpostoPorMovimento;
+begin
+  if (cbEstado.ItemIndex = 0) and (rgMovimento.ItemIndex = 1) then
+    wImposto := 7
+  else if (cbEstado.ItemIndex = 1) and (rgMovimento.ItemIndex = 1) then
+     wImposto := 10
+  else if (cbEstado.ItemIndex = 2) and (rgMovimento.ItemIndex = 1) then
+     wImposto := 12
+  else if (cbEstado.ItemIndex = 0) and (rgMovimento.ItemIndex = 0) then
+    wImposto := 5
+  else if (cbEstado.ItemIndex = 1) and (rgMovimento.ItemIndex = 0) then
+     wImposto := 7
+  else if (cbEstado.ItemIndex = 2) and (rgMovimento.ItemIndex = 0) then
+     wImposto := 10;
+
+  edImposto.Text := CurrToStr(wImposto);
+end;
+
+function TfrCalculoImposto.fCalcularValorTotal: String;
+begin
+   wValorTotal := wValorNota + (wValorNota * wImposto / 100);
+   Result := CurrToStr(wValorTotal)
+end;
+
+procedure TfrCalculoImposto.rgMovimentoClick(Sender: TObject);
+begin
+  pAtribuirImpostoPorMovimento;
+end;
+
+procedure TfrCalculoImposto.btSalvarClick(Sender: TObject);
+begin
+  // Busca a coluna (indice) na tabela
+  cdsCalculoImposto.IndexFieldNames := 'bdNUMERONOTA';
+
+  // Só permite a inserção caso ID não exista na tabela
+  if not cdsCalculoImposto.FindKey([edNumeroNota.Text]) then
+    begin
+      cdsCalculoImposto.Insert;
+    end
+  else
+    begin
+      cdsCalculoImposto.Edit;
+      // ShowMessage('O registro já existe');
+      // Exit;
+    end;
+
+  cdsCalculoImpostobdNUMERONOTA.AsInteger  := StrToInt(edNumeroNota.Text);
+  cdsCalculoImpostobdDATAEMISSAO.AsString  := edDataEmissao.Text;
+  cdsCalculoImpostobdESTADO.AsInteger      := cbEstado.ItemIndex;
+  cdsCalculoImpostobdMOVIMENTO.AsInteger   := rgMovimento.ItemIndex;
+  cdsCalculoImpostobdVALORNOTA.AsCurrency  := StrToCurr(edValorNota.Text);
+  cdsCalculoImpostobdIMPOSTO.AsCurrency    := StrToCurr(edImposto.Text);
+  cdsCalculoImpostobdVALORTOTAL.AsCurrency := wValorTotal;
+
+  cdsCalculoImposto.Post;
+end;
+
+procedure TfrCalculoImposto.edNumeroNotaExit(Sender: TObject);
+begin
+  cdsCalculoImposto.IndexFieldNames := 'bdNUMERONOTA';
+
+  if cdsCalculoImposto.FindKey([edNumeroNota.Text]) then
+    begin
+      edDataEmissao.Text    := cdsCalculoImpostobdDATAEMISSAO.Text;
+      cbEstado.ItemIndex    := StrToInt(cdsCalculoImpostobdMOVIMENTO.Text);
+      rgMovimento.ItemIndex := StrToInt(cdsCalculoImpostobdMOVIMENTO.Text);
+      edValorNota.Text      := cdsCalculoImpostobdVALORNOTA.Text;
+      edImposto.Text        := cdsCalculoImpostobdIMPOSTO.Text;
+      edValorTotal.Text     := 'R$ ' + cdsCalculoImpostobdVALORTOTAL.Text
+    end
+  else
+    Exit;
+end;
+
+end.

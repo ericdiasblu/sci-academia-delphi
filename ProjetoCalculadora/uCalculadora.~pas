@@ -50,7 +50,7 @@ begin
 
   wResultado:= wValorUm + wValorDois;
 
-  pCalcularResultado
+  pCalcularResultado;
 end;
 
 procedure TForm1.Button1Click(Sender: TObject);
@@ -59,7 +59,7 @@ begin
 
   wResultado:= wValorUm - wValorDois;
 
-  pCalcularResultado
+  pCalcularResultado;
 end;
 
 procedure TForm1.btMultiplicacaoClick(Sender: TObject);
@@ -68,7 +68,7 @@ begin
 
    wResultado:= wValorUm * wValorDois;
 
-   pCalcularResultado
+   pCalcularResultado;
 end;
 
 procedure TForm1.btDivisaoClick(Sender: TObject);
@@ -77,7 +77,7 @@ begin
 
   wResultado:= wValorUm / wValorDois;
 
-  pCalcularResultado
+  pCalcularResultado;
 end;
 
 procedure TForm1.Button2Click(Sender: TObject);
