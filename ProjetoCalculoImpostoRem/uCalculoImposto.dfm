@@ -1,8 +1,8 @@
 object frCalculoImposto: TfrCalculoImposto
-  Left = 711
-  Top = 125
+  Left = 244
+  Top = 121
   Width = 661
-  Height = 578
+  Height = 627
   Caption = 'C'#225'lculo de Imposoto'
   Color = clBtnFace
   Font.Charset = DEFAULT_CHARSET
@@ -29,14 +29,14 @@ object frCalculoImposto: TfrCalculoImposto
   end
   object lbImposto: TLabel
     Left = 43
-    Top = 248
+    Top = 288
     Width = 54
     Height = 13
     Caption = 'Imposto (%)'
   end
   object lbValorTotal: TLabel
     Left = 46
-    Top = 336
+    Top = 376
     Width = 51
     Height = 13
     Caption = 'Valor Total'
@@ -91,14 +91,14 @@ object frCalculoImposto: TfrCalculoImposto
   end
   object edImposto: TEdit
     Left = 112
-    Top = 244
+    Top = 284
     Width = 161
     Height = 21
     TabOrder = 5
   end
   object btCalcular: TButton
     Left = 112
-    Top = 288
+    Top = 328
     Width = 75
     Height = 25
     Caption = 'Calcular'
@@ -107,7 +107,7 @@ object frCalculoImposto: TfrCalculoImposto
   end
   object edValorTotal: TEdit
     Left = 112
-    Top = 332
+    Top = 372
     Width = 161
     Height = 21
     Enabled = False
@@ -130,7 +130,7 @@ object frCalculoImposto: TfrCalculoImposto
   end
   object btSalvar: TButton
     Left = 200
-    Top = 288
+    Top = 328
     Width = 75
     Height = 25
     Caption = 'Salvar'
@@ -139,7 +139,7 @@ object frCalculoImposto: TfrCalculoImposto
   end
   object DBGrid1: TDBGrid
     Left = 32
-    Top = 392
+    Top = 432
     Width = 585
     Height = 120
     DataSource = DataSource1
@@ -155,11 +155,6 @@ object frCalculoImposto: TfrCalculoImposto
         FieldName = 'bdNUMERONOTA'
         Title.Alignment = taCenter
         Title.Caption = 'N'#250'mero da Nota'
-        Title.Font.Charset = DEFAULT_CHARSET
-        Title.Font.Color = clWindowText
-        Title.Font.Height = -11
-        Title.Font.Name = 'MS Sans Serif'
-        Title.Font.Style = []
         Width = 90
         Visible = True
       end
@@ -210,6 +205,23 @@ object frCalculoImposto: TfrCalculoImposto
         Width = 76
         Visible = True
       end>
+  end
+  object btCalcularImpostosEstado: TButton
+    Left = 100
+    Top = 242
+    Width = 185
+    Height = 25
+    Caption = 'Calcular impostos todos Estados'
+    TabOrder = 10
+  end
+  object btDemonstracao: TButton
+    Left = 288
+    Top = 328
+    Width = 97
+    Height = 25
+    Caption = 'Demonstra'#231#227'o'
+    TabOrder = 11
+    OnClick = btDemonstracaoClick
   end
   object cdsCalculoImposto: TClientDataSet
     Active = True

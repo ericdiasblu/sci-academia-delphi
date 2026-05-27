@@ -33,11 +33,14 @@ type
     cdsCalculoImpostobdVALORTOTAL: TCurrencyField;
     DataSource1: TDataSource;
     DBGrid1: TDBGrid;
+    btCalcularImpostosEstado: TButton;
+    btDemonstracao: TButton;
     procedure btCalcularClick(Sender: TObject);
     procedure cbEstadoSelect(Sender: TObject);
     procedure rgMovimentoClick(Sender: TObject);
     procedure btSalvarClick(Sender: TObject);
     procedure edNumeroNotaExit(Sender: TObject);
+    procedure btDemonstracaoClick(Sender: TObject);
   private
 
     wValorNota: Currency;
@@ -207,6 +210,42 @@ begin
     end
   else
     Exit;
+end;
+
+procedure TfrCalculoImposto.btDemonstracaoClick(Sender: TObject);
+var
+  wParana: Currency;
+  wSantaCatarina: Currency;
+  wSaoPaulo: Currency;
+begin
+  wParana := 0;
+  wSantaCatarina := 0;
+  wSaoPaulo := 0;
+
+  cdsCalculoImposto.First;
+
+  while not cdsCalculoImposto.Eof do
+    begin
+        if cdsCalculoImpostobdESTADO.AsInteger = 0 then
+          begin
+            wParana := wParana + cdsCalculoImpostobdIMPOSTO.AsCurrency;
+          end
+        else if cdsCalculoImpostobdESTADO.AsInteger = 1 then
+          begin
+            wSantaCatarina := wSantaCatarina + cdsCalculoImpostobdIMPOSTO.AsCurrency;
+          end
+        else if cdsCalculoImpostobdESTADO.AsInteger = 2 then
+          begin
+            wSaoPaulo := wSaoPaulo + cdsCalculoImpostobdIMPOSTO.AsCurrency;
+          end;
+
+          cdsCalculoImposto.Next;
+    end;
+
+    ShowMessage('Paraná: '+CurrToStr(wParana) + #13 +
+                'Santa Catarina: '+CurrToStr(wSantaCatarina) + #13
+                'São Paulo: '+CurrToStr(wSaoPaulo) + #13);
+
 end;
 
 end.
