@@ -102,7 +102,7 @@ begin
   wTipo := rgTipo.ItemIndex;
   wHoraEntrada := StrToCurrDef(edHoraEntrada.Text,0);
 
-   if not fValidaCampos then
+  if not fValidaCampos then
     Exit;
 
   cdsEstacionamento.IndexFieldNames := 'bdCODIGO';

@@ -1,6 +1,6 @@
 object frEstacionamento: TfrEstacionamento
-  Left = 409
-  Top = 203
+  Left = 737
+  Top = 171
   Width = 616
   Height = 401
   Caption = 'Estacionamento'
