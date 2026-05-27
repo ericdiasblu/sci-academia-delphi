@@ -1,6 +1,6 @@
 inherited frCalculoImpostoComboRadio: TfrCalculoImpostoComboRadio
-  Left = 1050
-  Top = 120
+  Left = 1011
+  Top = 125
   Width = 301
   Height = 337
   OldCreateOrder = True

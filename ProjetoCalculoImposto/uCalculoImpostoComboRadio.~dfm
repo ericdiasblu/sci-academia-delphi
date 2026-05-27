@@ -2,21 +2,20 @@ inherited frCalculoImpostoComboRadio: TfrCalculoImpostoComboRadio
   Left = 1050
   Top = 120
   Width = 301
-  Height = 335
-  Caption = 'frCalculoImpostoComboRadio'
+  Height = 337
   OldCreateOrder = True
   PixelsPerInch = 96
   TextHeight = 13
   inherited lbValorNota: TLabel
-    Top = 120
+    Top = 128
   end
   inherited lbImposto: TLabel
-    Top = 160
+    Top = 168
   end
   inherited Label1: TLabel
-    Top = 248
+    Top = 256
   end
-  object Label2: TLabel [3]
+  object lbEstado: TLabel [3]
     Left = 56
     Top = 24
     Width = 33
@@ -25,18 +24,18 @@ inherited frCalculoImpostoComboRadio: TfrCalculoImpostoComboRadio
   end
   inherited btCalcular: TButton
     Left = 139
-    Top = 200
+    Top = 208
   end
   inherited edImposto: TEdit
-    Top = 156
+    Top = 164
     Width = 162
   end
   inherited edValorNota: TEdit
-    Top = 116
+    Top = 124
     Width = 161
   end
   inherited edValorTotal: TEdit
-    Top = 244
+    Top = 252
     Width = 161
   end
   object cbEstado: TComboBox

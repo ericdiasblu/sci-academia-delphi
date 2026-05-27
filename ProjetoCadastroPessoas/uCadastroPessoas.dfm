@@ -1,6 +1,6 @@
 object frCadastroPessoas: TfrCadastroPessoas
-  Left = 839
-  Top = 124
+  Left = 464
+  Top = 145
   Width = 525
   Height = 480
   Caption = 'Cadastro de Pessoas'
@@ -194,6 +194,15 @@ object frCadastroPessoas: TfrCadastroPessoas
         Width = 92
         Visible = True
       end>
+  end
+  object btContagemSexo: TButton
+    Left = 176
+    Top = 272
+    Width = 97
+    Height = 25
+    Caption = 'Contagem Sexo'
+    TabOrder = 9
+    OnClick = btContagemSexoClick
   end
   object cdsCadastroPessoas: TClientDataSet
     Active = True

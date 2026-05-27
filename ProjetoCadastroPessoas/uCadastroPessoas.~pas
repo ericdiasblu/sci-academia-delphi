@@ -32,9 +32,11 @@ type
     cdsCadastroPessoasbdNOME: TStringField;
     cdsCadastroPessoasbdENDERECO: TStringField;
     cdsCadastroPessoasbdTELEFONE: TStringField;
+    btContagemSexo: TButton;
     procedure btSalvarClick(Sender: TObject);
     procedure DBGrid1CellClick(Column: TColumn);
     procedure edCodigoExit(Sender: TObject);
+    procedure btContagemSexoClick(Sender: TObject);
   private
     { Private declarations }
     wCodigo: Integer;
@@ -202,8 +204,48 @@ begin
      end
   else
     Exit;
+end;
 
+procedure TfrCadastroPessoas.btContagemSexoClick(Sender: TObject);
+var
+  wContadorFeminino: Integer;
+  wContadorMasculino: Integer;
 
+  wPessoasFeminino: String;
+  wPessoasMasculino: String;
+begin
+  wContadorFeminino := 0;
+  wContadorMasculino := 0;
+  wPessoasFeminino := '';
+  wPessoasMasculino := '';
+
+  cdsCadastroPessoas.First;
+
+  while not cdsCadastroPessoas.Eof do
+    begin
+      if cdsCadastroPessoasbdSEXO.AsInteger = 0 then
+        begin
+          wContadorFeminino := wContadorFeminino + 1;
+          wPessoasFeminino :=  wPessoasFeminino + #13 + cdsCadastroPessoasbdNOME.AsString;
+        end
+      else if cdsCadastroPessoasbdSEXO.AsInteger = 1 then
+        begin
+           wContadorMasculino := wContadorMasculino + 1;
+           wPessoasMasculino := wPessoasMasculino + #13 + cdsCadastroPessoasbdNOME.AsString;
+        end;
+       cdsCadastroPessoas.Next;
+    end;
+
+    if (wContadorFeminino = 0) and (wContadorMasculino = 0) then
+      begin
+        ShowMessage('Nenhum usuário cadastrado')
+      end
+    else
+        ShowMessage('Masculino: ' + IntToStr(wContadorMasculino) + #13 +
+                'Lista: ' + wPessoasMasculino + #13 + '______________' + #13 + #13 +
+                'Feminino: ' + IntToStr(wContadorFeminino) + #13+
+                'Lista: ' + wPessoasFeminino
+                );
 end;
 
 end.

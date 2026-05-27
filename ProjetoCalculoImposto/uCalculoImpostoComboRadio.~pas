@@ -8,7 +8,7 @@ uses
 
 type
   TfrCalculoImpostoComboRadio = class(TfrCalculoImpostoPrincipal)
-    Label2: TLabel;
+    lbEstado: TLabel;
     cbEstado: TComboBox;
     rgMovimento: TRadioGroup;
     procedure cbEstadoSelect(Sender: TObject);
@@ -30,6 +30,7 @@ implementation
 procedure TfrCalculoImpostoComboRadio.cbEstadoSelect(Sender: TObject);
 begin
   inherited;
+  // Muda Imposto conforme Estado e verifica qual movimento está selecionado
    if (cbEstado.ItemIndex = 0) then
     begin
       if (rgMovimento.ItemIndex = 1) then
