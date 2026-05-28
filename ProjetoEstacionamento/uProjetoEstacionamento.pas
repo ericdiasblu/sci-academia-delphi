@@ -38,12 +38,31 @@ type
     cdsEstacionamentobdPAGAMENTO: TIntegerField;
     cdsEstacionamentobdVALOR: TCurrencyField;
     cbPagamento: TComboBox;
+    btDemonstrarValorTipo: TButton;
+    pnMarca: TPanel;
+    edCodigoMarca: TEdit;
+    lbNovaMarca: TLabel;
+    btSalvarMarca: TButton;
+    gdMarca: TDBGrid;
+    Label10: TLabel;
+    edNovaMarca: TEdit;
+    btAdicionarMarca: TButton;
+    btFechar: TButton;
+    cdsCadastroMarca: TClientDataSet;
+    dsCadastroMarca: TDataSource;
+    cdsCadastroMarcabdCODIGOMARCA: TIntegerField;
+    cdsCadastroMarcabdMARCA: TStringField;
     procedure btSalvarClick(Sender: TObject);
     procedure edHoraSaidaExit(Sender: TObject);
     procedure edCodigoExit(Sender: TObject);
     procedure btDemonstrarValorTotalClick(Sender: TObject);
     procedure btDemonstrarPagamentosClick(Sender: TObject);
     procedure btDemonstrarTipoPagamentoClick(Sender: TObject);
+    procedure btDemonstrarValorTipoClick(Sender: TObject);
+    procedure btAdicionarMarcaClick(Sender: TObject);
+    procedure btFecharClick(Sender: TObject);
+    procedure btSalvarMarcaClick(Sender: TObject);
+    procedure edMarcaExit(Sender: TObject);
   private
     wCodigo: Integer;
     wMarca: String;
@@ -78,6 +97,8 @@ type
     procedure pCadastrarEntrada;
     procedure pBucarCadastro;
     procedure pEditarCadastro;
+
+    procedure pCalcularValor;
 
     function  fDemonstraValorTotal: Currency;
     procedure pDemonstrarPagamentos;
@@ -139,18 +160,10 @@ begin
       Exit
     end;
 
-  if rgTipo.ItemIndex = 0 then
-    begin
-      wValorTipo := 10;
-    end
-  else if rgTipo.ItemIndex = 1 then
-    begin
-      wValorTipo := 20;
-    end;
-
   cbPagamento.Enabled := True;
-  wHoraTotal := wHoraSaida - wHoraEntrada;
-  wValor := wHoraTotal * wValorTipo;
+
+  pCalcularValor;
+
   edValor.Text := CurrToStr(wValor);
 end;
 
@@ -360,6 +373,129 @@ begin
     begin
       ShowMessage('Informe a Hora de Entrada');
       Result := False;
+    end;
+end;
+
+procedure TfrEstacionamento.btDemonstrarValorTipoClick(Sender: TObject);
+var
+  wContador: Integer;
+  wTexto: String;
+begin
+  wTexto := '';
+
+  if wHoraSaida <> 0 then
+    begin
+        for wContador:= 0 to rgTipo.Items.Count - 1 do
+          begin
+            rgTipo.ItemIndex := wContador;
+            pCalcularValor;
+
+            if wContador = 0 then
+              begin
+                wTexto := wTexto + 'Valor diária: '+CurrToStr(wValor)+#13;
+              end
+            else if wContador = 1 then
+              begin
+                 wTexto := wTexto + 'Valor mensal: '+CurrToStr(wValor)+#13;
+              end;
+          end;
+
+        ShowMessage(wTexto);
+    end
+  else
+    ShowMessage('Informe a Hora de Saída')
+
+end;
+
+procedure TfrEstacionamento.pCalcularValor;
+begin
+  if rgTipo.ItemIndex = 0 then
+    begin
+      wValorTipo := 10;
+    end
+  else if rgTipo.ItemIndex = 1 then
+    begin
+      wValorTipo := 20;
+    end;
+    
+  wHoraTotal := wHoraSaida - wHoraEntrada;
+  wValor := wHoraTotal * wValorTipo;
+
+end;
+
+procedure TfrEstacionamento.btAdicionarMarcaClick(Sender: TObject);
+begin
+  pnMarca.Left := 130;
+  pnMarca.Top := 50;
+end;
+
+procedure TfrEstacionamento.btFecharClick(Sender: TObject);
+begin
+  pnMarca.Left := 656;
+  pnMarca.Top := 32;
+end;
+
+procedure TfrEstacionamento.btSalvarMarcaClick(Sender: TObject);
+var
+  wCodigoMarca: Integer;
+  wNovaMarca: String;
+begin
+  wCodigoMarca := StrToIntDef(edCodigoMarca.Text,0);
+  wNovaMarca := edNovaMarca.Text;
+
+  if wCodigoMarca = 0 then
+    begin
+       ShowMessage('Informe o código');
+       Exit;
+    end
+  else if wNovaMarca = '' then
+    begin
+      ShowMessage('Informe a Marca');
+      Exit;
+    end;
+
+  cdsCadastroMarca.IndexFieldNames := 'bdCODIGOMARCA';
+
+  if not cdsCadastroMarca.FindKey([edCodigoMarca.Text]) then
+    begin
+      cdsCadastroMarca.Insert;
+    end
+  else
+    begin
+      ShowMessage('Código já cadastrado');
+      Exit;
+    end;
+
+  cdsCadastroMarcabdCODIGOMARCA.AsInteger := wCodigoMarca;
+  cdsCadastroMarcabdMARCA.AsString := wNovaMarca;
+end;
+
+procedure TfrEstacionamento.edMarcaExit(Sender: TObject);
+begin
+
+  if not cdsCadastroMarca.IsEmpty then
+    begin
+    cdsCadastroMarca.First;
+
+    while not cdsCadastroMarca.Eof do
+      begin
+        if cdsCadastroMarcabdMARCA.AsString = edMarca.Text then
+          begin
+           Exit;
+          end
+        else
+          begin
+            ShowMessage('Essa marca não está registrada');
+            wMarca := '';
+            Exit;
+          end;
+
+        cdsCadastroMarca.Next;
+      end;
+    end
+  else
+    begin
+       ShowMessage('Não há nenhum registro de marcas cadastrado')
     end;
 end;
 
